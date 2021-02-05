@@ -33,15 +33,15 @@ void OnTick()
    
    double volume = 0;
   // long vl[];
-    double array [];
-    double vol = iVolume(NULL,0,0);
+  //  double array [];
+  //  double vol = iVolume(NULL,0,0);
    // volume finds the index of 
     long b = Volume[candlesticks+1];
  //   Comment("B is  " + b);
  //   double candles [];
    // Comment("Volume is : " + vol);
     
-    double num=iBars(_Symbol,0);
+ //   double num=iBars(_Symbol,0);
    
       
     for(int i = 0; i<=30; i++){
