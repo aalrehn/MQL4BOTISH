@@ -41,8 +41,8 @@ void OnTick()
    double current = High[0];
 // highest candlestick from current to 30 back
 // candle sticks return the index of the highest candle
-   int candlesticks = iHighest(_Symbol,_Period,MODE_HIGH,10,0);
-   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
+   int candlesticks = iHighest(_Symbol,_Period,MODE_HIGH,30,0);
+   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,30,0);
 
 
    double currentCandle=High[candlesticks];
