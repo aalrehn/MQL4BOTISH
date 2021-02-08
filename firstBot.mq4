@@ -97,7 +97,7 @@ void OnTick()
          horizLine(candlesticks);
          verticalLine(candlesticks);
          double value = Volume[candlesticks];
-         Comment("Value of candlestick now is   " + value);
+         Comment("Value of Volume now is   " + value);
 
          if(Volume[candlesticks] > value)
            {
@@ -134,7 +134,7 @@ void OnTick()
             }
           
            
-            
+            /*
 
          if(currentCandle > nextCandle)
            {
@@ -154,10 +154,11 @@ void OnTick()
                verticalLine(candlesticks);
                // Comment("Just Changed");
 
-               Alert(Symbol()," ", currentCandle);
+               Alert(Symbol()," ", currentCandle );
               }
            }
 
+*/
         }
 
 
