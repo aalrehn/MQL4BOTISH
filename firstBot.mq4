@@ -3,6 +3,7 @@ bool crossToBuy = false;
 bool crossToSell = false;
 int MASlowPeriod = 50;
 int MAFastPeriod = 10;
+static datetime TimeStamp;
 static datetime alert_bar_time = 0;
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
@@ -41,7 +42,7 @@ void OnTick()
    double current = High[0];
 // highest candlestick from current to 30 back
 // candle sticks return the index of the highest candle
-   int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,10,0);
+   int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,5,0);
    int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
 
    int canldy = iHigh(Symbol(),0,0);
@@ -107,45 +108,18 @@ void OnTick()
             Comment("Now is bigger than value");
 
            }
-            
-            double nowCandle = currentCandle;
-            double highest = High[0];
-            if(highest > currentCandle){
-            
-            
-            if(alert_bar_time != iTime(Symbol(),240,0))
-              {
 
-
-               alert_bar_time= iTime(Symbol(),240,0);
-
-
-
-
-               horizLine(candlesticks);
-               verticalLine(candlesticks);
-               // Comment("Just Changed");
-
-               Alert(Symbol()," ", currentCandle ," CROSS ON BUY HAPPENED!! ");
-              }
-            
-            
-            
-            }
-          
-           
-            /*
-
-         if(currentCandle > nextCandle)
+         double nowCandle = currentCandle;
+         double highest = High[0];
+         if(highest > currentCandle)
            {
 
-            Comment("Current candle is : " + currentCandle + "  next candle is " + nextCandle);
-
-            if(alert_bar_time != iTime(Symbol(),240,0))
+            if(IsNewCandle())
+             
               {
+              
 
-
-               alert_bar_time= iTime(Symbol(),240,0);
+            //   alert_bar_time= iTime(Symbol(),PERIOD_CURRENT,0);
 
 
 
@@ -154,11 +128,40 @@ void OnTick()
                verticalLine(candlesticks);
                // Comment("Just Changed");
 
-               Alert(Symbol()," ", currentCandle );
+               Alert(Symbol()," ", currentCandle," CROSS ON BUY HAPPENED!! ");
+              
               }
+
+
+
            }
 
-*/
+
+         /*
+
+         if(currentCandle > nextCandle)
+         {
+
+         Comment("Current candle is : " + currentCandle + "  next candle is " + nextCandle);
+
+         if(alert_bar_time != iTime(Symbol(),240,0))
+           {
+
+
+            alert_bar_time= iTime(Symbol(),240,0);
+
+
+
+
+            horizLine(candlesticks);
+            verticalLine(candlesticks);
+            // Comment("Just Changed");
+
+            Alert(Symbol()," ", currentCandle );
+           }
+         }
+
+         */
         }
 
 
@@ -211,6 +214,26 @@ void OnTick()
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool IsNewCandle()
+  {
+
+   static datetime saved_candle_time;
+   if(Time[0] == saved_candle_time)
+      return false;
+
+   else
+      saved_candle_time=Time[0];
+   return true;
+
+  }
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
 void shortVerticalLine(int candles)
   {
    ObjectDelete("vertical");
@@ -222,11 +245,11 @@ void shortVerticalLine(int candles)
 //+------------------------------------------------------------------+
 void verticalLine(int candles)
   {
-  
- // if(Period() != PERIOD_H4 || Period() != PERIOD_D1){
-  // Comment("Change time frame for it to work");
- // }
- // else{
+
+// if(Period() != PERIOD_H4 || Period() != PERIOD_D1){
+// Comment("Change time frame for it to work");
+// }
+// else{
    ObjectDelete("vertical");
    ObjectCreate("vertical",OBJ_VLINE,0,Time[candles],High[candles]);
 //    Comment(candles);
@@ -254,14 +277,14 @@ void shortHoriz(int candles)
 //+------------------------------------------------------------------+
 void horizLine(int candles)
   {
- // if(Period() != PERIOD_M1 || Period() != PERIOD_D1){
-  // Comment("Change time frame for it to work");
- // }
- // else{
-  
+// if(Period() != PERIOD_M1 || Period() != PERIOD_D1){
+// Comment("Change time frame for it to work");
+// }
+// else{
+
    ObjectDelete("line");
    ObjectCreate("line",OBJ_HLINE,0,0,High[candles]);
- //  }
+//  }
 // Comment("This is horizental line"+ candles);
 
   }
