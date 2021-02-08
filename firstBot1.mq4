@@ -41,48 +41,25 @@ void OnTick()
    double current = High[0];
 // highest candlestick from current to 30 back
 // candle sticks return the index of the highest candle
-   int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,10,0);
-   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
+   int candlesticks = iHighest(_Symbol,_Period,MODE_HIGH,30,0);
+   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,30,0);
 
-   int canldy = iHigh(Symbol(),0,0);
+
    double currentCandle=High[candlesticks];
    double nextCandle = High[candlesticks -1];
-// double nextCandle = High[candlesticks -1];
    double shortcurrent = Low[shortCandle];
    double shortnextCandle = Low[shortCandle-1];
-
-// get the index of volume , compare it with the one before it, if it is
-// Comment("CandleStick   " + candlesticks + "   currentCandle   " + currentCandle + "  Candly " + canldy);
-
-//  Comment( "index    :  "+candlesticks+ "     highest price   " + currentCandle+   "   the next candle is   " + nextCandle);
+   Comment( "index    :  "+candlesticks+ "     highest price   " + currentCandle+   "   the next candle is   " + nextCandle);
 
 
 // sell place line under candlestick
 //  place on daily
 // when it touches the line, send alert
-
 // choose option to choose from buy or sell
 
-// volume bar 4 after 3rd
 
-// one for sell and one for buy
 
-// just look at the volume
 
-// if volume 5 first
-
-// draw line highest volume
-// check the volume before
-
-// draw a line above the candlestick that has high volume
-
-// and after it touches it, it should give an alert
-
-// sell is the opposite
-
-// get the current index of candlestick
-
-// get the current volume
 
 
 
@@ -90,57 +67,17 @@ void OnTick()
      {
 
 
-      if((Volume[candlesticks] > Volume[candlesticks+1]) && (Volume[candlesticks ] > Volume[candlesticks + 2]) && (Volume[candlesticks] > Volume[candlesticks +3]))
+      if((Volume[candlesticks] > Volume[candlesticks+1]) && (Volume[candlesticks ] > Volume[candlesticks + 2]))
         {
 
 
          horizLine(candlesticks);
          verticalLine(candlesticks);
-         double value = Volume[candlesticks];
-         Comment("Value of candlestick now is   " + value);
 
-         if(Volume[candlesticks] > value)
-           {
-            horizLine(candlesticks);
-            verticalLine(candlesticks);
-
-            Comment("Now is bigger than value");
-
-           }
-            
-            double nowCandle = currentCandle;
-            double highest = High[0];
-            if(highest > currentCandle){
-            
-            
-            if(alert_bar_time != iTime(Symbol(),240,0))
-              {
-
-
-               alert_bar_time= iTime(Symbol(),240,0);
-
-
-
-
-               horizLine(candlesticks);
-               verticalLine(candlesticks);
-               // Comment("Just Changed");
-
-               Alert(Symbol()," ", currentCandle ," CROSS ON BUY HAPPENED!! ");
-              }
-            
-            
-            
-            }
-          
-           
-            
 
          if(currentCandle > nextCandle)
            {
 
-            Comment("Current candle is : " + currentCandle + "  next candle is " + nextCandle);
-
             if(alert_bar_time != iTime(Symbol(),240,0))
               {
 
@@ -154,47 +91,42 @@ void OnTick()
                verticalLine(candlesticks);
                // Comment("Just Changed");
 
-               Alert(Symbol()," ", currentCandle);
+               Alert(Symbol()," " , currentCandle);
               }
            }
-
         }
-
-
-      /*
       if((Volume[shortCandle] < Volume[shortCandle+1]) && (Volume[shortCandle ] < Volume[shortCandle + 2]))
-      {
+        {
 
 
 
 
 
 
-       shortHoriz(shortCandle);
-       shortVerticalLine(shortCandle);
+         shortHoriz(shortCandle);
+         shortVerticalLine(shortCandle);
 
 
-       if(shortcurrent > shortnextCandle)
-         {
+         if(shortcurrent > shortnextCandle)
+           {
 
-          if(alert_bar_time != iTime(Symbol(),240,0))
-            {
-
-
-             alert_bar_time= iTime(Symbol(),240,0);
+            if(alert_bar_time != iTime(Symbol(),240,0))
+              {
 
 
-         //    Comment("alert zone");
+               alert_bar_time= iTime(Symbol(),240,0);
 
-             shortHoriz(shortCandle);
-             shortVerticalLine(shortCandle);
-             // Comment("Just Changed");
 
-             Alert(Symbol(), currentCandle, " Short ");
-            }
-         }
-         */
-      //     }
+           //    Comment("alert zone");
+
+               shortHoriz(shortCandle);
+               shortVerticalLine(shortCandle);
+               // Comment("Just Changed");
+
+               Alert(Symbol(), currentCandle, " Short ");
+              }
+           }
+        }
 
      }
 
@@ -221,15 +153,9 @@ void shortVerticalLine(int candles)
 //+------------------------------------------------------------------+
 void verticalLine(int candles)
   {
-  
- // if(Period() != PERIOD_H4 || Period() != PERIOD_D1){
-  // Comment("Change time frame for it to work");
- // }
- // else{
    ObjectDelete("vertical");
    ObjectCreate("vertical",OBJ_VLINE,0,Time[candles],High[candles]);
 //    Comment(candles);
-//}
 
   }
 
@@ -253,14 +179,8 @@ void shortHoriz(int candles)
 //+------------------------------------------------------------------+
 void horizLine(int candles)
   {
- // if(Period() != PERIOD_M1 || Period() != PERIOD_D1){
-  // Comment("Change time frame for it to work");
- // }
- // else{
-  
    ObjectDelete("line");
    ObjectCreate("line",OBJ_HLINE,0,0,High[candles]);
- //  }
 // Comment("This is horizental line"+ candles);
 
   }
