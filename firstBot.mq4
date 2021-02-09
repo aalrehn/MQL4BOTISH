@@ -88,8 +88,8 @@ void OnTick()
               {
 
 
-               horizLine(candlesticks);
-               verticalLine(candlesticks);
+           //    horizLine(candlesticks);
+            //   verticalLine(candlesticks);
 
 
                Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest);
@@ -133,8 +133,8 @@ void OnTick()
                  {
 
 
-                  horizLine(candlesticks1);
-                  verticalLine(candlesticks1);
+               //   horizLine(candlesticks1);
+              //    verticalLine(candlesticks1);
 
 
                   Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest1);
@@ -151,7 +151,7 @@ void OnTick()
            }
 
          else
-            if((Volume[candlesticks2] > Volume[candlesticks2+1]) && (Volume[candlesticks ] > Volume[candlesticks2 + 2]) && (Volume[candlesticks2] > Volume[candlesticks2 +3]))
+            if((Volume[candlesticks2] > Volume[candlesticks2+1]) && (Volume[candlesticks2 ] > Volume[candlesticks2 + 2]) && (Volume[candlesticks2] > Volume[candlesticks2 +3]))
               {
                horizLine(candlesticks2);
                verticalLine(candlesticks2);
@@ -178,8 +178,8 @@ void OnTick()
                     {
 
 
-                     horizLine(candlesticks2);
-                     verticalLine(candlesticks2);
+                 //    horizLine(candlesticks2);
+                  //   verticalLine(candlesticks2);
 
 
                      Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest2);
