@@ -43,6 +43,8 @@ void OnTick()
 // highest candlestick from current to 30 back
 // candle sticks return the index of the highest candle
    int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,5,0);
+   int candlesticks1 = iHighest(_Symbol,_Period,MODE_VOLUME,10,5);
+   int candlesticks2 = iHighest(_Symbol,_Period,MODE_VOLUME,15,10);
    int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
 
    int canldy = iHigh(Symbol(),0,0);
@@ -52,38 +54,6 @@ void OnTick()
    double shortcurrent = Low[shortCandle];
    double shortnextCandle = Low[shortCandle-1];
 
-// get the index of volume , compare it with the one before it, if it is
-// Comment("CandleStick   " + candlesticks + "   currentCandle   " + currentCandle + "  Candly " + canldy);
-
-//  Comment( "index    :  "+candlesticks+ "     highest price   " + currentCandle+   "   the next candle is   " + nextCandle);
-
-
-// sell place line under candlestick
-//  place on daily
-// when it touches the line, send alert
-
-// choose option to choose from buy or sell
-
-// volume bar 4 after 3rd
-
-// one for sell and one for buy
-
-// just look at the volume
-
-// if volume 5 first
-
-// draw line highest volume
-// check the volume before
-
-// draw a line above the candlestick that has high volume
-
-// and after it touches it, it should give an alert
-
-// sell is the opposite
-
-// get the current index of candlestick
-
-// get the current volume
 
 
 
@@ -93,8 +63,6 @@ void OnTick()
 
       if((Volume[candlesticks] > Volume[candlesticks+1]) && (Volume[candlesticks ] > Volume[candlesticks + 2]) && (Volume[candlesticks] > Volume[candlesticks +3]))
         {
-
-
          horizLine(candlesticks);
          verticalLine(candlesticks);
          double value = Volume[candlesticks];
@@ -114,22 +82,19 @@ void OnTick()
          if(highest > currentCandle)
            {
 
+
             if(IsNewCandle())
-             
+
               {
-              
-
-            //   alert_bar_time= iTime(Symbol(),PERIOD_CURRENT,0);
-
-
 
 
                horizLine(candlesticks);
                verticalLine(candlesticks);
-               // Comment("Just Changed");
 
-               Alert(Symbol()," ", currentCandle," CROSS ON BUY HAPPENED!! ");
-              
+
+               Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest);
+
+
               }
 
 
@@ -137,68 +102,102 @@ void OnTick()
            }
 
 
-         /*
 
-         if(currentCandle > nextCandle)
-         {
-
-         Comment("Current candle is : " + currentCandle + "  next candle is " + nextCandle);
-
-         if(alert_bar_time != iTime(Symbol(),240,0))
-           {
-
-
-            alert_bar_time= iTime(Symbol(),240,0);
-
-
-
-
-            horizLine(candlesticks);
-            verticalLine(candlesticks);
-            // Comment("Just Changed");
-
-            Alert(Symbol()," ", currentCandle );
-           }
-         }
-
-         */
         }
+      // second condition
+      else
+         if((Volume[candlesticks1] > Volume[candlesticks1+1]) && (Volume[candlesticks1 ] > Volume[candlesticks1 + 2]) && (Volume[candlesticks1] > Volume[candlesticks1 +3]))
+           {
+            horizLine(candlesticks1);
+            verticalLine(candlesticks1);
+            double value1 = Volume[candlesticks1];
+            Comment("Value of Volume now is   " + value1);
+
+            if(Volume[candlesticks1] > value1)
+              {
+               horizLine(candlesticks1);
+               verticalLine(candlesticks1);
+
+               Comment("Now is bigger than value");
+
+              }
+
+            double nowCandle1 = currentCandle;
+            double highest1 = High[0];
+            if(highest1 > currentCandle)
+              {
 
 
-      /*
-      if((Volume[shortCandle] < Volume[shortCandle+1]) && (Volume[shortCandle ] < Volume[shortCandle + 2]))
-      {
+               if(IsNewCandle())
+
+                 {
+
+
+                  horizLine(candlesticks1);
+                  verticalLine(candlesticks1);
+
+
+                  Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest1);
+
+
+                 }
+
+
+
+              }
+
+
+
+           }
+
+         else
+            if((Volume[candlesticks2] > Volume[candlesticks2+1]) && (Volume[candlesticks ] > Volume[candlesticks2 + 2]) && (Volume[candlesticks2] > Volume[candlesticks2 +3]))
+              {
+               horizLine(candlesticks2);
+               verticalLine(candlesticks2);
+               double value2 = Volume[candlesticks2];
+               Comment("Value of Volume now is   " + value2);
+
+               if(Volume[candlesticks2] > value2)
+                 {
+                  horizLine(candlesticks2);
+                  verticalLine(candlesticks2);
+
+                  Comment("Now is bigger than value");
+
+                 }
+
+               double nowCandle2 = currentCandle;
+               double highest2 = High[0];
+               if(highest2 > currentCandle)
+                 {
+
+
+                  if(IsNewCandle())
+
+                    {
+
+
+                     horizLine(candlesticks2);
+                     verticalLine(candlesticks2);
+
+
+                     Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest2);
+
+
+                    }
+
+
+
+                 }
+
+
+
+              }
 
 
 
 
-
-
-       shortHoriz(shortCandle);
-       shortVerticalLine(shortCandle);
-
-
-       if(shortcurrent > shortnextCandle)
-         {
-
-          if(alert_bar_time != iTime(Symbol(),240,0))
-            {
-
-
-             alert_bar_time= iTime(Symbol(),240,0);
-
-
-         //    Comment("alert zone");
-
-             shortHoriz(shortCandle);
-             shortVerticalLine(shortCandle);
-             // Comment("Just Changed");
-
-             Alert(Symbol(), currentCandle, " Short ");
-            }
-         }
-         */
-      //     }
 
      }
 
@@ -211,9 +210,6 @@ void OnTick()
   }
 
 
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
 
 //+------------------------------------------------------------------+
 //|                                                                  |
