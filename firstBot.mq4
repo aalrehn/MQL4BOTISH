@@ -51,8 +51,8 @@ void OnTick()
 
       if((Volume[candlesticks] > Volume[candlesticks-1]) && (Volume[candlesticks ] > Volume[candlesticks - 2]) && (Volume[candlesticks] > Volume[candlesticks -3]) && (Volume[candlesticks] > Volume[candlesticks-4]))
         {
-       //  horizLine(candlesticks);
-       //  verticalLine(candlesticks);
+         horizLine(candlesticks);
+         verticalLine(candlesticks);
          double value = Volume[candlesticks];
          Comment("Value of Volume now is 1  " + value + " candlesticks " + Volume[candleAhead] + " candleahead - 1 " + Volume[candleAhead+1] +  "  volume + 2  " + Volume[candleAhead +2] + " volume 3 " + Volume[candleAhead+3] );
 
