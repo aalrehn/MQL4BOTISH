@@ -8,32 +8,14 @@ static datetime alert_bar_time = 0;
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
 //+------------------------------------------------------------------+
+
+
 void OnTick()
   {
-// look for current price
-
-// scan through to candlestic 30 bars before
-
-// find the posisiton of the candlestick
-
-// check if three volumes led to a high volume
-
-// // look for highest candlestick
-
-// see if the volume is high volume after three volume bars
-
-// price has crossed over
-
-// put line in the middle of candlestick
-// keep the  lines
-
-// sell or buy
-// only daily and save it
-// option to choose from only daily or 4 hr
 
 
-//current price of ask
-
+// stay at previous volume bar unless it is crossed
+//
 
    double askprice = MarketInfo(_Symbol,MODE_ASK);
 // current price of bid
@@ -42,12 +24,17 @@ void OnTick()
    double current = High[0];
 // highest candlestick from current to 30 back
 // candle sticks return the index of the highest candle
-   int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,5,0);
-   int candlesticks1 = iHighest(_Symbol,_Period,MODE_VOLUME,10,5);
-   int candlesticks2 = iHighest(_Symbol,_Period,MODE_VOLUME,15,10);
-   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
 
-   int canldy = iHigh(Symbol(),0,0);
+
+   int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,10,0);   // 0 1 2 3 4
+   int candlesticks1 = iHighest(_Symbol,_Period,MODE_VOLUME,7,4);  // 3 4 5 6 7
+   int candlesticks2 = iHighest(_Symbol,_Period,MODE_VOLUME,9,6);  // 7 8 9 10
+   int shortCandle = iLowest(_Symbol,_Period,MODE_LOW,10,0);
+   
+   int candleAhead = iHighest(_Symbol,_Period,MODE_VOLUME,candlesticks,0);
+  // Comment(Volume[candleAhead]);
+   
+ //  int canldy = iHigh(Symbol(),0,0);
    double currentCandle=High[candlesticks];
    double nextCandle = High[candlesticks -1];
 // double nextCandle = High[candlesticks -1];
@@ -55,76 +42,81 @@ void OnTick()
    double shortnextCandle = Low[shortCandle-1];
 
 
+// if volume is indicated, check for volumes ahead and draw a line, if and only if there was an alert.
+
+  // for(int i = 0; i<=30; i++)
+   //  {
+ 
 
 
-   for(int i = 0; i<=30; i++)
-     {
-
-
-      if((Volume[candlesticks] > Volume[candlesticks+1]) && (Volume[candlesticks ] > Volume[candlesticks + 2]) && (Volume[candlesticks] > Volume[candlesticks +3]))
+      if((Volume[candlesticks] > Volume[candlesticks-1]) && (Volume[candlesticks ] > Volume[candlesticks - 2]) && (Volume[candlesticks] > Volume[candlesticks -3]) && (Volume[candlesticks] > Volume[candlesticks-4]))
         {
          horizLine(candlesticks);
          verticalLine(candlesticks);
          double value = Volume[candlesticks];
-         Comment("Value of Volume now is   " + value);
+         Comment("Value of Volume now is 1  " + value + " candlesticks " + Volume[candleAhead] + " candleahead - 1 " + Volume[candleAhead+1] +  "  volume + 2  " + Volume[candleAhead +2] + " volume 3 " + Volume[candleAhead+3] );
 
-         if(Volume[candlesticks] > value)
+
+         if(Volume[candleAhead] > value)
            {
-            horizLine(candlesticks);
-            verticalLine(candlesticks);
-
-            Comment("Now is bigger than value");
-
-           }
-
-         double nowCandle = currentCandle;
-         double highest = High[0];
-         if(highest > currentCandle)
-           {
+           if((Volume[candleAhead] > Volume[candleAhead +1]) && (Volume[candleAhead] > Volume[candleAhead +2]) && (Volume[candleAhead] > Volume[candleAhead +3])){
+           
+        //    Comment("COldkd");
+          
+         //   double nowCandle1 = currentCandle;
+         //   double highest1 = High[0];
+          //  if(highest1 > currentCandle)
+           //   {
 
 
-            if(IsNewCandle())
+               if(IsNewCandle())
 
-              {
+                 {
 
-
-           //    horizLine(candlesticks);
-            //   verticalLine(candlesticks);
-
-
-               Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest);
+            //   Comment("Here");
+                  horizLine(candleAhead);
+                  verticalLine(candleAhead);
 
 
-              }
+                  Alert(Symbol(),"  Just crossed ");
+
+                     }
+              //       }
+                  }
+                  }
+
+         }
+
+                 
+        
 
 
 
-           }
-
-
-
-        }
+        
       // second condition
-      else
-         if((Volume[candlesticks1] > Volume[candlesticks1+1]) && (Volume[candlesticks1 ] > Volume[candlesticks1 + 2]) && (Volume[candlesticks1] > Volume[candlesticks1 +3]))
+      
+      /*
+      
+       else  if((Volume[candlesticks1] > Volume[candlesticks1+1]) && (Volume[candlesticks1 ] > Volume[candlesticks1 + 2]) && (Volume[candlesticks1] > Volume[candlesticks1 +3]))
            {
             horizLine(candlesticks1);
             verticalLine(candlesticks1);
             double value1 = Volume[candlesticks1];
-            Comment("Value of Volume now is   " + value1);
+            Comment("Value of Volume now is 2   " + value1 + " value of second " + Volume[candlesticks1 + 1] + " value of candlestick " + Volume[candlesticks-3]);
+            
 
             if(Volume[candlesticks1] > value1)
               {
                horizLine(candlesticks1);
                verticalLine(candlesticks1);
 
-               Comment("Now is bigger than value");
+               Comment("Now is bigger than value2");
 
               }
 
-            double nowCandle1 = currentCandle;
-            double highest1 = High[0];
-            if(highest1 > currentCandle)
+            double nowCandle2 = currentCandle;
+            double highest2 = High[0];
+            if(highest2 > currentCandle)
               {
 
 
@@ -137,7 +129,7 @@ void OnTick()
               //    verticalLine(candlesticks1);
 
 
-                  Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest1);
+                  Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest2);
 
 
                  }
@@ -150,26 +142,26 @@ void OnTick()
 
            }
 
-         else
-            if((Volume[candlesticks2] > Volume[candlesticks2+1]) && (Volume[candlesticks2 ] > Volume[candlesticks2 + 2]) && (Volume[candlesticks2] > Volume[candlesticks2 +3]))
+         
+         else  if((Volume[candlesticks2] > Volume[candlesticks2+1]) && (Volume[candlesticks ] > Volume[candlesticks2 + 2]) && (Volume[candlesticks2] > Volume[candlesticks2 +3]) && (Volume[candlesticks2]> Volume[candlesticks2 + 4]))
               {
                horizLine(candlesticks2);
                verticalLine(candlesticks2);
                double value2 = Volume[candlesticks2];
-               Comment("Value of Volume now is   " + value2);
+               Comment("Value of Volume now is 3  " + value2);
 
                if(Volume[candlesticks2] > value2)
                  {
-                  horizLine(candlesticks2);
-                  verticalLine(candlesticks2);
+                //  horizLine(candlesticks2);
+               //   verticalLine(candlesticks2);
 
-                  Comment("Now is bigger than value");
+                  Comment("Now is bigger than value 3");
 
                  }
 
-               double nowCandle2 = currentCandle;
-               double highest2 = High[0];
-               if(highest2 > currentCandle)
+               double nowCandle3 = currentCandle;
+               double highest3 = High[0];
+               if(highest3 > currentCandle)
                  {
 
 
@@ -178,36 +170,36 @@ void OnTick()
                     {
 
 
-                 //    horizLine(candlesticks2);
-                  //   verticalLine(candlesticks2);
+                     horizLine(candlesticks2);
+                     verticalLine(candlesticks2);
 
 
-                     Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest2);
+                     Alert(Symbol(),"  Crossed drawn line at :   ",currentCandle, " with new price  ", highest3);
 
 
                     }
 
-
+}
 
                  }
+*/
 
 
-
-              }
-
-
-
-
-
-     }
+             }
 
 
 
 
 
+     
 
 
-  }
+
+
+
+
+
+  
 
 
 
