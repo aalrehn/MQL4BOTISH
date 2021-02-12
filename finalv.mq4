@@ -51,7 +51,7 @@ void OnTick()
 //  int candlesticks = iHighest(_Symbol,_Period,MODE_VOLUME,i,0);
  // if((Volume[candlesticks] > Volume[candlesticks + i])) 
   //}
-  int counter = 10;
+  int counter = 50;
   for(int i = 0; i<=counter; i++){
   double first = Volume[i];
   double second = Volume [i+1];
@@ -60,15 +60,16 @@ void OnTick()
  // double k = iVolume(NULL,0,i);
   //Comment(k);
   if(( first > second ) && (first > third) && ( first > fourth) && (High[0] > High[i])){
-  
+         horizLine(i);
+         verticalLine(i);
+ //  counter++;
   if(IsNewCandle())
 
                  {
 
      //    Comment(i);
-         horizLine(i);
-         verticalLine(i);
-               Comment(counter + " IS new candle " );
+        
+               Comment(counter + " IS new candle " + i );
 
 
          Alert(Symbol(),"  Crossed drawn line at2 :   ");
@@ -77,32 +78,8 @@ void OnTick()
                  }
   
  
-  } else if(counter < 20){
-  
-  Comment(counter +  "  EKSE IF ");
-   counter ++;
-   if(( first > second ) && (first > third) && ( first > fourth) && (High[0] > High[i])){
-    if(IsNewCandle())
-
-                 {
-
-     //    Comment(i);
-         horizLine(i);
-         verticalLine(i);
-               Comment(counter + " IS new candle " );
-
-
-         Alert(Symbol(),"  Crossed drawn line at2 :   ");
-
-
-                 }
-  
-   
-   
-   
-   
-   }
   } 
+  
   
   }
   
