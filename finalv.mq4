@@ -46,6 +46,7 @@ void OnTick()
 
 
 
+ // Comment(b);
   int counter =4 ;
   for(int i = 0; i<=counter; i++){
   double first = Volume[i];
@@ -55,22 +56,20 @@ void OnTick()
  // double k = iVolume(NULL,0,i);
   //Comment(k);
   if(( first > second ) && (first > third) && ( first > fourth) && (High[0] > High[i])){
-  // updated counter with value of caught volume
-  // keep decrementing so it keeps moving with it
- // counter--;
-   //   counter = i;
-    //  counter--;
-      counter = i;
-      Comment(counter);
+ 
+         Comment(i);
+       counter--; 
          horizLine(i);
          verticalLine(i);
+         i--;
  //  counter++;
   if(IsNewCandle())
 
                  {
+          //       Comment("new candle");
                  
-         //       counter = i;
-                 counter--;
+                counter = i;
+            //     counter--;
 
         
           //     Comment(counter + " IS new candle " + i );
@@ -86,8 +85,13 @@ void OnTick()
   
  
   } else{
+      
+         
          counter++;
+       
+         
   }
+  
   
   
   }
