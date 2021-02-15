@@ -54,13 +54,14 @@ void OnTick()
   double fourth = Volume[i+3];
  // double k = iVolume(NULL,0,i);
   //Comment(k);
-  if(( first > second ) && (first > third) && ( first > fourth) && (Low[0] > Low[i])){
+  if(( first > second ) && (first > third) && ( first > fourth) && (Low[0] < Low[i])){
   // updated counter with value of caught volume
   // keep decrementing so it keeps moving with it
  // counter--;
    //   counter = i;
-    //  counter--;
-      counter = i;
+      counter--;
+      i--;
+//      counter = i;
       Comment(counter);
          horizLine(i);
          verticalLine(i);
