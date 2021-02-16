@@ -53,9 +53,9 @@ void OnTick()
           //     Comment(counter + " IS new candle " + i );
 
 
-         Alert(Symbol(),"  Crossed drawn line at2 :   ");
+         Alert(Symbol(),"  Sell   ");
          
-         SendNotification(Symbol()+" Buy");
+         SendNotification(Symbol()+" Sell");
         
 
 
