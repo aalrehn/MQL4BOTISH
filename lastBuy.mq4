@@ -42,78 +42,130 @@ void OnTick()
             for(int k = counter; k>=0; k--)
               {
               
-               for(int q = 0 ; q<increment ; q++){
-               
-              if(k > counter){
-               if(High[k] > High[counter])
-                 {
-                  Comment("K is bigger " + k + " than i " + q + " counter is "+ counter);
-                  horizLine(counter);
-                  verticalLine(counter);
-               //   i--;
-              //    break;
-                 }
-                 }
+                 if((High[i] < High[j]) && (first > second) &&(first > third) &&(first > fourth)){
+                  
+                  horizLine(i);
+                  verticalLine(i);
+                  Comment("First" + " High[i] " + High[i] + " High[j] " + High[j]);
                 
-              //   else if(q< counter){
-                 //j = 
-              //   k++;
-                 //i++;
-                 
-            //     counter++;
-                  if((High[i] < High[j])&& (first > second) && (first > third) && (first > fourth)){
-                  horizLine(i);
-                  verticalLine(i);
-                 Comment("K " + k + " counter  " + High[counter] + " high q " + High[q] + " i is " + High[i]  + " j is " + High[j] +  "     " + j);
-               //  counter++;
-                 }else{
-                 
-                 
-                 
-                 i++;
-                 if((High[i] < High[j])&& (first > second) && (first > third) && (first > fourth)){
-                 
-                  horizLine(i);
-                  verticalLine(i);
-                 }
-                 }
+                }
+              else{
+              while((High[i] > High[j]) && (first < second) && (first < third ) && (first < fourth)){
+              
+              i++;
+              j++;
+              
+              
+           //   if(!(High[i] < High[j])){ 
+             // j++;
                
-              //   }
+                
+                
+               // }
+               
+               
+             //  Comment("while");
+             }
+             
+            while((High[i] > High[j]) && (first < second) && (first < third ) && (first < fourth)){
+            
+               
+            
+            
+            
+            
+            
+            }
+            
+            // loop through i
+            // loop through j
+            if(High[i] > High[j]){
+            
+               for(;i<counter;i++){
+                  if ((High[i] > High[j]) && (first < second) && (first < third ) && (first < fourth)){
+                  
+                 Comment("Found " + i);
+                horizLine(i);
+                verticalLine(i);
+                  }else{
+                  if(i > j){
+                  for(;j<i && j>=0; j--){
+            if ((High[i] > High[j]) && (first < second) && (first < third ) && (first < fourth)){
+               
+                  horizLine(i);
+                  verticalLine(i);
+               
+               Comment(i + " j " + j);
+               
+               }
+                  Comment("Not found" + " i " + i + " j " + j);
+                 // }
+                 // }
+               }
+               }
+               }
+               }
+              if ((High[i] > High[j]) && (first < second) && (first < third ) && (first < fourth)){
+               
+               horizLine(i);
+                verticalLine(i);
+               
+               Comment(i + " j " + j);
+               
+               }
+               
+            }
+            
+            /*
+            
+            for(int cnt = 0 ; cnt < i; cnt ++){
+            
+            if((High[j] > High[i]) && (first > second) && (first > third)&& (first > fourth)){
+            
+               Comment("Found it hehehe " + i + " j " + j);
+               
+                 horizLine(i);
+                 verticalLine(i);
                  
-                 
-                 
-                 /*
-               else
-                  if(High[0] > High[i])
-                    {
-
-
-                     Comment("Incrementing i " + i + " counter is " + counter + " k " + k + " resorting to else" + " value of j is" + j);
-
-                     horizLine(i);
-                     verticalLine(i);
-
-                    }
-                  else if((High[i] != 0)&& (High[i] < High[i-1]))
-                          {
-
-                           Comment(High[i] + "  High -1 ->  " + High[-1]);
-                           horizLine(i);
-                           verticalLine(i);
-
-                          }
-                       
-                     else
-                        if(High[i] > High[j])
-                          {
-                           Comment("value of i is " + i + " value of j is " + High[i+1]);
-                           horizLine(i);
-                           verticalLine(i);
-
-                          }
-                         */
-
+               }
+            
+            else{
+               //    i++;
+              //     cnt++;
+              
+            Comment("It is not " + i + " cnt is " + cnt);
+            
+            
+            }
+            
+                 }
+               */
+               
+               
+               /*
+               while(found){
+               
+               
+               i++;
+              // j++;
+               Comment("i is " + i + " j is " + j);
+                if (High[i] < High[j]){
+                
+                Comment("incrementing  " + " i is " + High[i] + " j is " + High[j]);
+               
+                found = true;
+                 horizLine(i);
+                verticalLine(i);
+                
+                
+                
+                
+                        
               }
+              }
+              */
+           }    
+             
             if(High[0] > High[i])
               {
                if(IsNewCandle())
@@ -142,17 +194,12 @@ void OnTick()
            }
         
         }
+        }
+        }
 
 
 
-     }
-
-
-
-
-
-
-  }
+ 
 
 
 
