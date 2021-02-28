@@ -1,95 +1,78 @@
 //+------------------------------------------------------------------+
-bool crossToBuy = false;
-bool crossToSell = false;
-int MASlowPeriod = 50;
-int MAFastPeriod = 10;
-static datetime TimeStamp;
-static datetime alert_bar_time = 0;
-//+------------------------------------------------------------------+
-//| Expert tick function                                             |
-//+------------------------------------------------------------------+
-
-
+//|
 void OnTick()
   {
+//---
+   int counter =250;
+   int increment = 30;
+   for(int i = 0; i<=counter; i++)
+     {
 
-   bool found = false;
-   bool notfound = false;
-  int counter =100;
-  for(int i = 0; i<=counter; i++){
-  
-  double first = Volume[i];
-  double second = Volume [i+1];
-  double third = Volume[i+2];
-  double fourth = Volume[i+3];
-  
-  for(int j = 0; j<i; j++){
-  
-  
-  if(( first > second ) && (first > third) && ( first > fourth) && (High[i] > High[j] || Low[i] > Low[j])){
- 
+      double first = Volume[i];
+      double second = Volume [i+1];
+      double third = Volume[i+2];
+      double fourth = Volume[i+3];
 
-      
-      counter = i;
-      
-      printf("%d",counter);
-         Comment("value of i is  "+ i + " value of counter is " + counter + " high i is " + High[i] + " high i -1 is " + High[i+1]  );
-    
-         horizLine(i);
-         verticalLine(i);
-        
-           i--;
-           counter --;
-         if(Low[0] > Low[i]){
-  if(IsNewCandle())
+      for(int j = 0; j<i; j++)
+        {
+
+
+         if((first > second) && (first > third) && (first > fourth) && (Low[i] > Low[j]))
+           {
+
+
+            counter = i;
+            
+            Comment("Found it her  " + i + " high of " + High[i] + " high of j " +j + " high of j " + High[j] + " value of counter is " + counter);
+            //   break;
+            horizLine(i);
+            verticalLine(i);
+
+         // get the value of i 
+         //
+            
+            if(Low[0] < Low[i])
+              {
+               if(IsNewCandle())
 
                  {
-          //       Comment("new candle");
-           //      i--;
-                counter = i;
-            //     counter--;
-
-        
-          //     Comment(counter + " IS new candle " + i );
 
 
-         Alert(Symbol(),"  Sell   ");
-         
-         SendNotification(Symbol()+" Sell");
-        
 
+                  Alert(Symbol(),"  Crossed drawn line at2 : Sell   ");
+
+                  SendNotification(Symbol()+" Sell");
 
                  }
-                 }
-  
-            break;
-  } else  {
-  
-        counter ++;
-        Comment(counter);
-        printf("%d",counter);
-    
-         
-       
-         
+
+}
+               
+
+              
+
+               
+
+           }
+
+
+
+
+
+         //      break;
+
+        }
+
+
+      //     break;
+     }
+
+
+
+
+
+
+
   }
-  }
-  
-  
-  
-  }
-  
-      
-      
-
-             
-             
-             }
-             
-
-
-
-
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -107,8 +90,9 @@ bool IsNewCandle()
 
   }
 
+
+
 //+------------------------------------------------------------------+
-//|                                                                  |
 //+------------------------------------------------------------------+
 void shortVerticalLine(int candles)
   {
@@ -162,33 +146,6 @@ void horizLine(int candles)
    ObjectCreate("line",OBJ_HLINE,0,0,Low[candles]);
 //  }
 // Comment("This is horizental line"+ candles);
-
-  }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-void checkMaCross()
-  {
-
-   double MaSlowcurr = iMA(Symbol(),0,MASlowPeriod,0,MODE_SMA,PRICE_CLOSE,0);
-   double MASlowPrev = iMA(Symbol(),0,MASlowPeriod,0,MODE_SMA,PRICE_CLOSE,1);
-   double MAFastCurr = iMA(Symbol(),0,MAFastPeriod,0,MODE_SMA,PRICE_CLOSE,0);
-   double MAFastPrev = iMA(Symbol(),0,MAFastPeriod,0,MODE_SMA,PRICE_CLOSE,1);
-
-   if(MASlowPrev > MAFastPrev && MAFastCurr > MaSlowcurr)
-     {
-      crossToBuy = true;
-      Comment("Cross to buy ");
-
-     }
-   if(MASlowPrev < MAFastPrev && MAFastCurr < MaSlowcurr)
-     {
-
-      crossToSell = true;
-      Comment("cross to sell");
-     }
-
 
   }
 //+------------------------------------------------------------------+
